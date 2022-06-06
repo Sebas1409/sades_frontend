@@ -1,0 +1,53 @@
+<div class="card border-primary mt-3">
+  <div class="card-header">
+    <strong>Medidas registradas</strong>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th width="10%">Fecha</th>
+          <th width="6.34615%">talla</th>
+          <th width="6.34615%">peso</th>
+          <th width="6.34615%">edad</th>
+          <th width="6.34615%">busto alto</th>
+          <th width="6.34615%">busto bajo</th>
+          <th width="6.34615%">cintura</th>
+          <th width="6.34615%">cadera abdomen</th>
+          <th width="6.34615%">cadera gluteos</th>
+          <th width="6.34615%">brazo derecho</th>
+          <th width="6.34615%">brazo izquierdo</th>
+          <th width="6.34615%">pierna derecha</th>
+          <th width="6.34615%">pierna izquierda</th>
+          <th width="6.34615%">guia nutricional</th>
+          <th width="7.5%" class="celda-derecha">
+            <button (click)="mostrar_modal_dietas(false)" mat-mini-fab class="bg-success">
+              <mat-icon>add</mat-icon>
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let asi of listado_medidas; let ind = index;">
+          <td align="center">{{asi.fecha | date:'dd/MM/yyyy'}}</td>
+          <td align="center">{{asi.talla | number:'1.2-2'}}</td>
+          <td align="center">{{asi.peso | number:'1.2-2'}}</td>
+          <td align="center">{{asi.edad | number:'1.2-2'}}</td>
+          <td align="center">{{asi.busto_alto | number:'1.2-2'}}</td>
+          <td align="center">{{asi.busto_bajo | number:'1.2-2'}}</td>
+          <td align="center">{{asi.cintura | number:'1.2-2'}}</td>
+          <td align="center">{{asi.cadera_abdomen | number:'1.2-2'}}</td>
+          <td align="center">{{asi.cadera_gluteos | number:'1.2-2'}}</td>
+          <td align="center">{{asi.brazo_derecho | number:'1.2-2'}}</td>
+          <td align="center">{{asi.brazo_izquierdo | number:'1.2-2'}}</td>
+          <td align="center">{{asi.pierna_derecha | number:'1.2-2'}}</td>
+          <td align="center">{{asi.pierna_izquierda | number:'1.2-2'}}</td>
+          <td align="center">{{asi.guia_nutricional | number:'1.2-2'}}</td>
+          <td align="right">
+            <mat-icon class="text-danger" (click)="eliminar_asistencia(asi.idmedidas)">delete</mat-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

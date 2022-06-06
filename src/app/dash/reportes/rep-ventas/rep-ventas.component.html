@@ -1,0 +1,45 @@
+<titulo-seccion titulo="Reporte de Ventas" subtitulo="Ventas registradas" [anterior]="true">
+</titulo-seccion>
+
+<filtro-tabla [confechas]="true" [listado_filtros]="listado_filtros" [cant_datos]="listado_datos.length"
+  (buscar_datos)="listar_datos($event)" (exportar)="exportar_excel()">
+</filtro-tabla>
+
+<div class="table-responsive mt-3">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th width="10%">Fecha</th>
+        <th width="10%">Codigo</th>
+        <th width="10%">Sector</th>
+        <th width="10%">Origen</th>
+        <th>Cliente</th>
+        <th width="15%">Empleado</th>
+        <th width="7.5%">Total</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listado_datos">
+        <td align="center">{{item.fecha_doc | date:'dd/MM/yyyy'}}</td>
+        <td align="center">{{item.codigo_doc}}</td>
+        <td align="center">{{item.sector | uppercase}}</td>
+        <td align="center">{{item.idmatricula ? 'MATRICULA' : 'PUNTO DE VENTA'}}</td>
+        <td>{{item.cliente | uppercase}}</td>
+        <td align="center">{{item.empleado | uppercase}}</td>
+        <td align="center">{{item.total_venta | number:'1.2-2'}}</td>
+      </tr>
+    </tbody>
+    <tbody>
+      <tr>
+        <td colspan="6">
+          <em class="text-muted">
+            Se encontraron {{listado_datos.length}} registros;
+          </em>
+        </td>
+        <td align="center">
+          <strong>{{total_ventas | number:'1.2-2'}}</strong>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,74 @@
+<titulo-seccion titulo="Detalles de Matricula" [anterior]="true"></titulo-seccion>
+
+<div class="card mb-3"
+  [ngClass]="{'border-success': item.idestadomat == 1, 'border-warning': item.idestadomat == 2, 'border-danger': item.idestadomat == 3}">
+  <div class="card-header">
+    <strong>Datos de la Matrícula</strong>
+  </div>
+  <div class="card-body">
+    <div class="row">
+      <div class="col-md-9">
+        <h6 class="m-0 p-0"><small class="text-muted">Cliente:</small></h6>
+        <h4><strong>{{item.cliente | uppercase}}</strong></h4>
+
+        <h6 class="m-0 p-0"><small class="text-muted">Servicio:</small></h6>
+        <h5 class="text-primary">{{item.servicio | uppercase}}</h5>
+
+        Fecha Inicio: {{item.finicio | date:'dd/MM/yyyy'}} <br>
+        <span *ngIf="item.diasextra > 0" class="text-success">
+          <em>Se agregaron {{item.diasextra}} dias extra</em> <br>
+        </span>
+        <span class="text-danger">Fecha Vencimiento: {{item.ffinal | date:'dd/MM/yyyy'}}
+          <em *ngIf="item.dias_restantes >= 0">(restan {{item.dias_restantes}} dias)</em>
+          <em *ngIf="item.dias_restantes < 0">(se encuentra vencida)</em>
+        </span>
+      </div>
+      <div class="col-md-3">
+        <div class='form-group'>
+          <label class='control-label' for='testadomat'>Estado Matricula*:</label>
+          <div class="input-group input-group-sm">
+            <select class='form-control form-control-sm' name='inp_testadomat' [(ngModel)]='item.idestadomat'>
+              <option value='null' disabled selected>Seleccione Estado Matricula</option>
+              <option *ngFor='let opt of estados_matricula' [value]='opt.idestadomat'>{{opt.nombre | uppercase}}
+              </option>
+            </select>
+            <div class="input-group-append">
+              <button (click)="cambiar_estado_matricula()" class="btn btn-secondary" type="button">
+                <i class="fa fa-save"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class='form-group' *ngIf="item.idestadomat != 3 && item.diasextra == 0">
+          <label class='control-label' for='tdiasextra'>Dias extra*:</label>
+          <div class="input-group input-group-sm">
+            <input min="0" type='number' class='form-control form-control-sm' name='inp_tdiasextra'
+              [(ngModel)]='dias_extra' placeholder='Ingrese Dias extra'>
+            <div class="input-group-append">
+              <button (click)="agregar_dias_extra()" class="btn btn-secondary" type="button">
+                <i class="fa fa-save"></i>
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-success btn-block" (click)="duplicar_matricula()" *ngIf="item.idestadomat == 3">
+          <i class="fa fa-clone"></i> Duplicar Matricula
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<mat-pagos *ngIf="item.idmatricula" [idmat]="item.idmatricula" [item]="item"></mat-pagos>
+
+<mat-asistencias class="mt-3" *ngIf="item.idestadomat == 1 && item.idmatricula" [idmat]="item.idmatricula"
+  [idestadomat]="item.idestadomat"></mat-asistencias>
+
+<mat-dietas *ngIf="item.idestadomat == 1 && item.idmatricula" [idpaciente]="item.idcliente" [idmat]="item.idmatricula"
+  [idestadomat]="item.idestadomat"></mat-dietas>
+
+<mat-medidas *ngIf="item.idestadomat == 1 && item.idmatricula" [idmat]="item.idmatricula"></mat-medidas>
+
+<mat-imagenes *ngIf="item.idestadomat == 1 && item.idmatricula" [idmat]="item.idmatricula"></mat-imagenes>

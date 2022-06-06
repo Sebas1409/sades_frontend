@@ -1,0 +1,22 @@
+export interface Alumnos {
+	idalumno?: number; // int(11)
+	nombres?: string; // varchar(50)
+	apellidos?: string; // varchar(50)
+	nombre_completo?: string; // varchar(100)
+	fnacimiento?: string; // date
+	nrodni?: number; // int(8)
+	sexo?: boolean; // int(1)
+	direccion?: string; // varchar(100)
+	nomapoderado?: string; // varchar(100)
+	telapoderado?: string; // varchar(15)
+	dniapoderado?: number; // int(8)
+	estado?: boolean; // int(1)
+	clave?: string; // varchar(50)
+	correo?: string; // varchar(150)
+	telefono?: string; // varchar(50)
+	matriculado?: boolean; // int(1)
+	obsevaciones?: string; // text
+	vigencia?: boolean; // int(1)
+	creacion?: string; // datetime
+	modificacion?: string; // datetime
+}

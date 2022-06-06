@@ -1,0 +1,26 @@
+<titulo-seccion titulo="Dietas" subtitulo="Mantenimiento de Dietas" [anterior]="true">
+</titulo-seccion>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th width="7.5%" class="celda-derecha">
+          <button (click)="entrar_a_item(false)" mat-mini-fab class="bg-success">
+            <mat-icon>add</mat-icon>
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listado_datos">
+        <td (click)="entrar_a_item(true, item)">{{item.nombre | uppercase}}</td>
+        <td align="right">
+          <mat-icon (click)="entrar_a_item(true, item)" class="text-primary">edit</mat-icon>
+          <mat-icon (click)="eliminar_item(item.iddieta)" class="text-danger">delete</mat-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

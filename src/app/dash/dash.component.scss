@@ -1,0 +1,117 @@
+$moviles: "(max-width: 767px)";
+$tablet: "(min-width: 768px) and (max-width: 1023px)";
+$desktop: "(min-width: 1024px)";
+$amarillo: #363636;
+$rosado: #fd9bb2;
+
+.dash-wrapper {
+  width: 100%;
+  min-height: 100vh;
+}
+
+.zona-ulogin {
+  background: #363636;
+  color: white !important;
+}
+
+.bg-toolbar {
+  background: blue;
+}
+
+.admin {
+  background: #363636 !important;
+  color: white !important;
+
+  * {
+    color: rgb(255, 21, 21) !important;
+  }
+}
+
+.fitness {
+  background: $amarillo !important;
+  color: white !important;
+
+  * {
+    color: black !important;
+  }
+}
+
+.beletza {
+  background: $rosado !important;
+  color: rgb(138, 26, 26) !important;
+
+  * {
+    color: rgb(138, 26, 26) !important;
+  }
+}
+
+.navbar {
+  transition: all linear 0.2s;
+  -o-transition: all linear 0.2s;
+  -moz-transition: all linear 0.2s;
+  -webkit-transition: all linear 0.2s;
+
+  .navbar-brand {
+    font-size: 14px !important;
+  }
+  .navbar-toggler {
+    font-size: 14px !important;
+  }
+}
+
+.component-outlet {
+  box-shadow: 0px 0px 3px #ccc;
+  padding: 20px;
+  margin: 20px;
+  font-size: 13px !important;
+  margin-bottom: 0px;
+  background-color: white;
+}
+
+.creditos {
+  margin: 20px;
+  margin-top: 10px;
+  font-size: 11px;
+}
+
+.navbar-toggler {
+  border-color: white !important;
+  color: white !important;
+  background: white !important;
+
+  .navbar-toggler-icon {
+    border-color: blue !important;
+    color: blue !important;
+  }
+}
+
+.sidenav {
+  background: white;
+  width: 20% !important;
+  border: none;
+  border-right: solid 1px #999;
+  box-shadow: 0px 1px 3px #999;
+  cursor: pointer;
+
+  * {
+    text-decoration: none !important;
+  }
+
+  .logo {
+    width: 100%;
+    margin: 0px auto 10px auto;
+    box-shadow: 0px 0px 5px #999999;
+    text-align: center;
+
+    img {
+      height: 100px;
+      padding: 15px 0px;
+    }
+  }
+}
+
+@media #{$moviles} {
+  .sidenav {
+    width: 75% !important;
+  }
+}

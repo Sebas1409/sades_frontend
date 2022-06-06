@@ -1,0 +1,10 @@
+<div class="imagen-acta mb-3" [ngClass]="{'error_subida': error_subida}">
+  <img src="{{url_imagen}}" alt="" onerror="this.src='assets/no-image.jpg'">
+  <div class="opciones-upload">
+    <button class="btn">
+      <i style="cursor: pointer !important;" class="fa fa-camera"></i>&nbsp;
+      Cambiar Imagen
+    </button>
+    <input type="file" name="myfile" (change)="seleccionar_archivo($event.target.files);" />
+  </div>
+</div>

@@ -1,0 +1,106 @@
+<titulo-modal [titulo]="_titulo"></titulo-modal>
+
+<form (ngSubmit)="validar_accion()">
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tfecha'>Fecha*:</label>
+        <input type='date' [ngClass]="{'is-invalid': tfecha.invalid}" class='form-control' required
+          [formControl]='tfecha' name='inp_tfecha' [(ngModel)]='item.fecha' placeholder='Ingrese Fecha'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='ttalla'>Talla*:</label>
+        <input type='number' class='form-control' name='inp_ttalla' [(ngModel)]='item.talla'
+          placeholder='Ingrese Talla'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tpeso'>Peso*:</label>
+        <input type='number' class='form-control' name='inp_tpeso' [(ngModel)]='item.peso' placeholder='Ingrese peso'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tedad'>Edad*:</label>
+        <input type='number' class='form-control' name='inp_tedad' [(ngModel)]='item.edad' placeholder='Ingrese edad'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tbusto_alto'>Busto Alto*:</label>
+        <input type='number' class='form-control' name='inp_tbusto_alto' [(ngModel)]='item.busto_alto'
+          placeholder='Ingrese busto_alto'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tbusto_bajo'>Busto Bajo*:</label>
+        <input type='number' class='form-control' name='inp_tbusto_bajo' [(ngModel)]='item.busto_bajo'
+          placeholder='Ingrese busto_bajo'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tcintura'>Cintura*:</label>
+        <input type='number' class='form-control' name='inp_tcintura' [(ngModel)]='item.cintura'
+          placeholder='Ingrese cintura'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tcadera_abdomen'>Cadera Abdomen*:</label>
+        <input type='number' class='form-control' name='inp_tcadera_abdomen' [(ngModel)]='item.cadera_abdomen'
+          placeholder='Ingrese cadera_abdomen'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tcadera_gluteos'>Cadera Gluteos*:</label>
+        <input type='number' class='form-control' name='inp_tcadera_gluteos' [(ngModel)]='item.cadera_gluteos'
+          placeholder='Ingrese cadera_gluteos'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tbrazo_derecho'>Brazo Derecho*:</label>
+        <input type='number' class='form-control' name='inp_tbrazo_derecho' [(ngModel)]='item.brazo_derecho'
+          placeholder='Ingrese brazo_derecho'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tbrazo_izquierdo'>Brazo Izquierdo*:</label>
+        <input type='number' class='form-control' name='inp_tbrazo_izquierdo' [(ngModel)]='item.brazo_izquierdo'
+          placeholder='Ingrese brazo_izquierdo'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tpierna_derecha'>Pierna Derecha*:</label>
+        <input type='number' class='form-control' name='inp_tpierna_derecha' [(ngModel)]='item.pierna_derecha'
+          placeholder='Ingrese pierna_derecha'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tpierna_izquierda'>Pierna Izquierda*:</label>
+        <input type='number' class='form-control' name='inp_tpierna_izquierda' [(ngModel)]='item.pierna_izquierda'
+          placeholder='Ingrese pierna_izquierda'>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tguia_nutricional'>Guia Nutricional*:</label>
+        <input type='number' class='form-control' name='inp_tguia_nutricional' [(ngModel)]='item.guia_nutricional'
+          placeholder='Ingrese guia_nutricional'>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-success mr-1" *ngIf="tfecha.valid" [disabled]="_guardando">Guardar</button>
+  <button type="button" class="btn btn-danger" (click)="cerrar_ventana(false)">Cancelar</button>
+</form>

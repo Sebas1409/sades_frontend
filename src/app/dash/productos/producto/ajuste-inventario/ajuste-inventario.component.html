@@ -1,0 +1,33 @@
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th width="25%">Area</th>
+        <th>Sector</th>
+        <th width="10%">Stock</th>
+        <th width="7.5%" class="celda-derecha">
+          <button type="button" (click)="modal_ajuste_inventario()" mat-mini-fab class="bg-success">
+            <mat-icon>add</mat-icon>
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listado_datos">
+        <td>{{item.area | uppercase}}</td>
+        <td>{{item.sector | uppercase}}</td>
+        <td align="center">{{item.stock_actual | number:'1.2-2'}}</td>
+        <td align="right"></td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="2" align="right">
+          <strong>STOCK TOTAL:</strong>
+        </td>
+        <td align="center">{{total_stock | number:'1.2-2'}}</td>
+        <td></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

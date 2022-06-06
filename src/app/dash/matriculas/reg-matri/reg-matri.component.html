@@ -1,0 +1,118 @@
+<titulo-seccion [titulo]="_titulo_componente" subtitulo="Matricula" [anterior]="true">
+</titulo-seccion>
+
+<form (ngSubmit)="guardar_cambios()">
+  <div class="row">
+    <div class="col-md-2">
+      <div class='form-group'>
+        <label class='control-label' for='tanio'>Año Lectivo*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': tanio.invalid}" name='inp_anio'
+          [(ngModel)]='item.anio_lectivo' [formControl]='tanio'>
+          <option value='null' disabled selected>Seleccione Estado</option>
+          <option *ngFor='let lst of listado_anios_lectivos' [value]='lst.codigo'>{{lst.nombre | uppercase}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class='form-group'>
+        <label class='control-label' for='ttipomatricula'>Tipo Matricula*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': ttipomatricula.invalid}" name='inp_ttipomatricula' (change)="seleccionar_tipo()"
+          [(ngModel)]='item.idtipomatri' [formControl]='ttipomatricula'>
+          <option value='null' disabled selected>Seleccione Estado</option>
+          <option *ngFor='let tipos of listado_tipos_matriculas' [value]='tipos.codigo'>{{tipos.nombre | uppercase}}
+          </option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class='form-group'>
+        <label class='control-label' for='tmatricula'>Monto Matricula*:</label>
+        <input readonly type='number' class='form-control' name='inp_tmatricula' [(ngModel)]='item.monto_matricula'
+          placeholder='Ingrese Sesiones'>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class='form-group'>
+        <label class='control-label' for='tmonto_mensual'>Monto Mensual*:</label>
+        <input readonly type='number' class='form-control' name='inp_tmonto_mensual' [(ngModel)]='item.monto_mensual'
+          placeholder='Ingrese Vigencia'>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class='form-group'>
+        <label class='control-label' for='tnrodni'>DNI Alumno*:</label>
+        <div class="input-group mb-3">
+          <input type='text' class='form-control' #tnrodni="ngModel" name='inp_tnrodni' [(ngModel)]='cliente.nrodni'
+            placeholder='Ingrese DNI'>
+          <div class="input-group-append">
+            <button class="btn btn-secondary" type="button" (click)="buscar_cliente(tnrodni.value)">
+              <i class="fa fa-search" aria-hidden="true"></i>
+            </button>
+            <button class="btn btn-primary" type="button" (click)="registrar_cliente()">
+              <i class="fa fa-plus" aria-hidden="true"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div class='form-group'>
+        <label class='control-label' for='tcliente'>Nombre del Alumno*:</label>
+        <input type='text'  class='form-control' name='inp_tcliente' [(ngModel)]='item.nombre_completo'
+          placeholder='Ingrese Cliente' [formControl]="tcliente">
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class='form-group'>
+        <label class='control-label' for='taula'>Cursos*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': taula.invalid}" name='inp_taula'
+          [(ngModel)]='item.aula' [formControl]='taula' (change)="buscar_servicio(taula.value)">
+          <option value='null' disabled selected>Seleccione Aula</option>
+          <option *ngFor='let opt of listado_cursos' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class='form-group'>
+        <label class='control-label' for='tfinicio'>Fecha de Matricula*:</label>
+        <input type='date' [ngClass]="{'is-invalid': tfinicio.invalid}" class='form-control' required
+          [formControl]='tfinicio' name='inp_tfinicio' [(ngModel)]='item.fmatricula'>
+      </div>
+    </div>
+    <div class="col-md-2">
+      <div class='form-group'>
+        <label class='control-label' for='tpago'>Tipo de Pago*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': tpago.invalid}" name='inp_tpago'
+          [(ngModel)]='item.tipo_pago' [formControl]='tpago'>
+          <option value='null' disabled selected>Seleccione Estado</option>
+          <option *ngFor='let opt of listado_tipo_pago' [value]='opt.codigo'>{{opt.nombre | uppercase}}
+          </option>
+        </select>
+      </div>
+    </div>
+  </div>
+  <div class="row">
+    
+    <div class="col-md-12">
+      <div class='form-group'>
+        <label class='control-label' for='tdescripcion'>Observaciones*:</label>
+        <textarea type='date'  class='form-control' rows="4" name='inp_tdescripcion' [(ngModel)]='item.descripcion'>
+        </textarea>
+      </div>
+    </div>
+   
+    
+  </div>
+
+  <div class="alert alert-danger" *ngIf="!item.idcaja">
+    La caja no esta abierta!
+  </div>
+
+  <button type="submit"
+    *ngIf="item.idcaja   && tfinicio.valid"
+    class="btn btn-success mr-1">Registrar</button>
+  <button (click)="regresar_listado()" type="button" class="btn btn-danger">Volver</button>
+</form>

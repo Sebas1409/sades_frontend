@@ -1,0 +1,13 @@
+<titulo-modal [titulo]="_titulo"></titulo-modal>
+
+<form (ngSubmit)="validar_accion()">
+
+  <div class='form-group'>
+    <label class='control-label' for='tnombre'>Nombre*:</label>
+    <input type='text' [ngClass]="{'is-invalid': tnombre.invalid}" class='form-control' required [formControl]='tnombre'
+      name='inp_tnombre' [(ngModel)]='item.nombre' placeholder='Ingrese Nombre'>
+  </div>
+
+  <button type="submit" class="btn btn-success mr-1" *ngIf="tnombre.valid" [disabled]="_guardando">Guardar</button>
+  <button type="button" class="btn btn-danger" (click)="cerrar_ventana(false)">Cancelar</button>
+</form>

@@ -1,0 +1,15 @@
+<titulo-seccion [titulo]="_titulo" subtitulo="Mantenimiento de Dietas" [anterior]="true">
+</titulo-seccion>
+
+<form (ngSubmit)="validar_accion()">
+  <div class='form-group'>
+    <label class='control-label' for='tnombre'>Nombre*:</label>
+    <input type='text' [ngClass]="{'is-invalid': tnombre.invalid}" class='form-control' required [formControl]='tnombre'
+      name='inp_tnombre' [(ngModel)]='item.nombre' placeholder='Ingrese Nombre'>
+  </div>
+
+  <cuadro-texto #textbox [cadena]="item.contenido" (terminado)="texto_terminado($event)"></cuadro-texto>
+
+  <button type="submit" class="btn btn-success mr-1" *ngIf="tnombre.valid" [disabled]="_guardando">Guardar</button>
+  <button type="button" class="btn btn-danger" (click)="volver_listado(false)">Cancelar</button>
+</form>

@@ -1,0 +1,31 @@
+<titulo-seccion [titulo]="_titulo_componente" subtitulo="Ubicación y Suficiencia" [anterior]="true">
+</titulo-seccion>
+
+<div class="row">
+    <div class="col-md-5">
+        <div class='form-group'>
+            <label class='control-label' for='tnrodni'>Nombre Evento:</label>
+            <div class="input-group mb-3">
+                <input type='text' class='form-control' #tnrodni="ngModel" name='inp_tnrodni'
+                    [(ngModel)]='item.nombre_evento' placeholder='Nombre Evento'>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-2">
+        <div class='form-group'>
+            <label class='control-label' for='tnrodni'>Fecha Evento:</label>
+            <div class="input-group mb-3">
+                <input type='date' class='form-control' #tnrodni="ngModel" name='inp_tnrodni'
+                    [(ngModel)]='item.fecha_evento' placeholder='Fecha Evento'>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div class='form-group text-center'>
+            <label class='control-label' for='tnrodni'> Guardar Evento </label>
+            <button mat-mini-fab class="bg-success" (click)="registrarEvento()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>

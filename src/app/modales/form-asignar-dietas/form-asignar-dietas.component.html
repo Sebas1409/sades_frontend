@@ -1,0 +1,29 @@
+<titulo-modal [titulo]="_titulo"></titulo-modal>
+
+<form (ngSubmit)="validar_accion()">
+
+  <div class='form-group'>
+    <label class='control-label' for='tfecha'>Fecha*:</label>
+    <input type='date' [ngClass]="{'is-invalid': tfecha.invalid}" class='form-control' required [formControl]='tfecha'
+      name='inp_tfecha' [(ngModel)]='item.fecha' placeholder='Ingrese Fecha'>
+  </div>
+
+  <div class='form-group'>
+    <label class='control-label' for='tdieta'>Dieta*:</label>
+    <select class='form-control' [ngClass]="{'is-invalid': tdieta.invalid}" name='inp_tdieta' [(ngModel)]='item.iddieta'
+      [formControl]='tdieta'>
+      <option value='null' disabled selected>Seleccione Dieta</option>
+      <option *ngFor='let opt of listado_dietas' [value]='opt.iddieta'>{{opt.nombre | uppercase}}</option>
+    </select>
+  </div>
+
+  <div class='form-group'>
+    <label class='control-label' for='tobservaciones'>Observaciones*:</label>
+    <textarea class='form-control' name='inp_tobservaciones' rows="2" [(ngModel)]='item.observaciones'
+      placeholder='Ingrese Observaciones'></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-success mr-1" *ngIf="tdieta.valid && tfecha.valid"
+    [disabled]="_guardando">Guardar</button>
+  <button type="button" class="btn btn-danger" (click)="cerrar_ventana(false)">Cancelar</button>
+</form>

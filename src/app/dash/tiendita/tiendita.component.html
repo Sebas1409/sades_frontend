@@ -1,0 +1,114 @@
+<div class="row">
+  <div class="col-md-8">
+    <div class="row" *ngIf="_ulogin">
+      <div class="col-md-3">
+        <div class="input-group" *ngIf="_ulogin.nivel == 1">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Area:</span>
+          </div>
+          <select (change)="listar_sectores(idarea.value)" #idarea="ngModel" class='form-control' name='inp_farea'
+            [(ngModel)]='farea'>
+            <option value='null' disabled selected>Seleccione Area</option>
+            <option *ngFor='let opt of listado_areas' [value]='opt.idarea'>{{opt.nombre | uppercase}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Sectores:</span>
+          </div>
+          <select (change)="listar_productos(idsector.value)" #idsector="ngModel" class='form-control'
+            name='inp_fsector' [(ngModel)]='venta.idsector'>
+            <option value='null' disabled selected>Seleccione Sector</option>
+            <option *ngFor='let opt of listado_sectores' [value]='opt.idsector'>{{opt.nombre | uppercase}}</option>
+          </select>
+        </div>
+      </div>
+      <div class="col-md-6">
+        <div class="input-group">
+          <div class="input-group-prepend">
+            <span class="input-group-text">Producto:</span>
+          </div>
+          <input type='text' class='form-control' name='inp_fprod' [(ngModel)]='fprod' placeholder='Ingrese Producto'>
+        </div>
+      </div>
+    </div>
+
+    <div class="area-productos mt-3">
+
+      <div *ngIf="venta.idsector && !venta.idcaja" class="alert alert-danger">
+        No existe caja aperturada, comuniquese con el Administrador!
+      </div>
+
+      <div class="row" *ngIf="venta.idsector && venta.idcaja">
+        <div class="col-md-2 text-center" *ngFor="let prod of listado_productos">
+          <div class="item-prod" (click)="seleccionar_producto(prod)">
+            <div class="prod">
+              <strong>{{prod.nombre | uppercase}}</strong> <br>
+              <span class="text-primary">{{prod.precio_venta | currency:'S/ '}}</span> /
+              <span class="text-success">{{prod.stock_actual | number:'1.1-1'}}</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+  <div class="col-md-4 zona-venta">
+    <h5>DETALLE DE VENTA:</h5>
+
+    <div class="row">
+      <div class="col-md-8">
+        <div class="input-group mb-3">
+          <input type='text' class='form-control' #tnrodni="ngModel" name='inp_tnrodni' [(ngModel)]='cliente.nrodni'
+            placeholder='Ingrese DNI'>
+          <div class="input-group-append">
+            <button class="btn btn-secondary" type="button" (click)="buscar_cliente(tnrodni.value)">
+              <i class="fa fa-search"></i>
+            </button>
+            <button class="btn btn-primary" type="button" (click)="registrar_cliente()">
+              <i class="fa fa-plus"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class='form-group'>
+      <input type='text' readonly class='form-control' name='inp_tcliente' [(ngModel)]='cliente.nombre_completo'
+        placeholder='Nombre del Cliente' [formControl]="tcliente">
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-sm">
+        <tbody>
+          <tr *ngFor="let det of detalle_venta; let ind = index;">
+            <td>{{det.cantidad}} X {{det.descripcion | uppercase}}</td>
+            <td align="center">{{det.precio_venta | number:'1.2-2'}}</td>
+            <td align="center">{{det.monto_total | number:'1.2-2'}}</td>
+            <td align="right">
+              <mat-icon class="text-danger" (click)="eliminar_item(ind)">delete</mat-icon>
+            </td>
+          </tr>
+        </tbody>
+        <tfoot>
+          <tr>
+            <td colspan="2"></td>
+            <td align="center"><strong>{{venta.total_venta | number:'1.2-2'}}</strong></td>
+            <td></td>
+          </tr>
+        </tfoot>
+      </table>
+    </div>
+
+    <div class="btn-group btn-block" role="group" *ngIf="venta.total_venta > 0 && venta.idcaja && venta.idcliente">
+      <button class="btn btn-success" type="button" (click)="guardar_venta()">
+        <i class="fa fa-check"></i> GUARDAR VENTA
+      </button>
+      <button class="btn btn-danger" type="button" (click)="limpiar_venta()">
+        <i class="fa fa-times"></i> CANCELAR
+      </button>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,34 @@
+<titulo-seccion titulo="Listado Evento Exámenes" subtitulo="Ubicación y Suficiencia" [anterior]="true">
+</titulo-seccion>
+<filtro-tabla [confechas]="true" [listado_filtros]="listado_filtros" [cant_datos]="listado_datos.length"
+  (buscar_datos)="listar_datos($event)" (exportar)="exportar_excel()">
+</filtro-tabla>
+
+<div class="table-responsive mt-3">
+    <table class="table table-striped" aria-hidden="true">
+      <thead>
+        <tr>
+          <th style="width: 3%;">Nro</th>
+          <th>Nombre Evento</th>
+          <th style="width: 10%;">Fecha Evento</th>
+          <th style="width: 8.5%;" class="celda-derecha">
+            <button (click)="entrar_a_item(false)" mat-mini-fab class="bg-success">
+              <mat-icon>add</mat-icon>
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listado_datos;let i = index ">
+          <td> {{item.idevento}} </td>
+          <td (click)="entrar_a_item(true, item)">{{item.nombre_evento | uppercase}}</td>
+          <td (click)="entrar_a_item(true, item)" style="text-align: center;">{{item.fecha_evento | date:'dd/MM/yyyy'}}</td>
+          <td style="text-align: right;">
+            <mat-icon (click)="asginarExamen(item)" class="text-dark" title="Asignar">assignment_turned_in</mat-icon>
+            <mat-icon   (click)="entrar_a_item(true, item)" class="text-primary">edit</mat-icon>
+            <mat-icon (click)="eliminar_item(i)" class="text-danger">delete</mat-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

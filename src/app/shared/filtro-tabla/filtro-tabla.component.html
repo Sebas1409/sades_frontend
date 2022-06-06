@@ -1,0 +1,135 @@
+<div class="row">
+  <div class="col-md-6">
+    <form (ngSubmit)="agregar_filtro()" *ngIf="listado_filtros.length > 0">
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fa fa-filter mr-1"></i> Filtrar por:
+          </span>
+        </div>
+        <select class='form-control form-control-sm' name='inp_filtro.campo' [(ngModel)]='campofiltro'
+          (change)="mostrar_opciones_filtro()">
+          <option value='null' disabled selected>Seleccione Campo</option>
+          <option *ngFor='let opt of listado_filtros' [value]='opt.campo'>{{opt.nombre | uppercase}}</option>
+        </select>
+        <select *ngIf="filtrosel.operadores" class='form-control form-control-sm' name='filtro_operadores'
+          [(ngModel)]='operadorfiltro'>
+          <option value='null' disabled selected>Seleccione Opcion</option>
+          <option *ngFor='let opt of filtrosel.operadores' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+        </select>
+        <select *ngIf="filtrosel.opciones" class='form-control form-control-sm' name='filtro_opciones'
+          [(ngModel)]='valorfiltro'>
+          <option value='null' disabled selected>Seleccione Opcion</option>
+          <option *ngFor='let opt of filtrosel.opciones' [value]='opt.valor'>{{opt.nombre | uppercase}}</option>
+        </select>
+        <input *ngIf="filtrosel.input" type="text" name='valorfiltro' [(ngModel)]='valorfiltro'
+          class="form-control form-control-sm" placeholder="Ingrese valor">
+        <div class="input-group-append">
+          <button class="btn btn-primary" [disabled]="!campofiltro" type="submit">Agregar Filtro</button>
+        </div>
+      </div>
+    </form>
+  </div>
+  <div class="col-md-2" *ngIf="confechas">
+    <div class='form-group'>
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fa fa-calendar"></i>
+          </span>
+        </div>
+        <input type='date' class='form-control' name='inp_finicio' [(ngModel)]='finicio' placeholder='Ingrese Desde'>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2" *ngIf="confechas">
+    <div class='form-group'>
+      <div class="input-group input-group-sm">
+        <div class="input-group-prepend">
+          <span class="input-group-text">
+            <i class="fa fa-calendar"></i>
+          </span>
+        </div>
+        <input type='date' class='form-control' name='inp_ffinal' [(ngModel)]='ffinal' placeholder='Ingrese Hasta'>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="input-group input-group-sm">
+      <div class="input-group-prepend">
+        <span class="input-group-text">
+          <i class="fa fa-list-ol"></i>
+        </span>
+      </div>
+      <select (change)="listar_datos()" class='form-control form-control-sm' name='inp_nropag' [(ngModel)]='nrofilas'>
+        <option *ngFor='let opt of cantidad_filas' [value]='opt'>Mostrar {{opt}} filas</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-2" *ngIf="!confechas">
+    <div class="input-group input-group-sm">
+      <div class="input-group-prepend">
+        <button class="btn btn-primary" type="button" [disabled]="nropag == 0" (click)="pagina_anterior()">
+          <i class="fa fa-chevron-left"></i>
+        </button>
+      </div>
+      <input type="text" readonly class="form-control" value="Pagina {{nropag + 1}}">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button" [disabled]="cant_datos != nrofilas" (click)="pagina_siguiente();">
+          <i class="fa fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2" *ngIf="!confechas">
+    <div class="btn-group btn-group-sm btn-block" role="group">
+      <button (click)="listar_datos()" class="btn btn-primary">
+        <i class="fa fa-search"></i> Buscar
+      </button>
+      <button (click)="exportar_excel()" class="btn btn-secondary">
+        <i class="fa fa-download"></i> Exportar
+      </button>
+    </div>
+  </div>
+</div>
+
+<div class="row mt-3" *ngIf="!confechas">
+  <div class="col-md-12">
+    <span class="chip" *ngFor="let filtro of filtros_asignados; let ind = index;" (click)="quitar_filtro(ind)">
+      {{filtro.chip}} <i class="closebtn fa fa-times"></i>
+    </span>
+  </div>
+</div>
+
+<div class="row" *ngIf="confechas">
+  <div class="col-md-8">
+    <span class="chip" *ngFor="let filtro of filtros_asignados; let ind = index;" (click)="quitar_filtro(ind)">
+      {{filtro.chip}} <i class="closebtn fa fa-times"></i>
+    </span>
+  </div>
+  <div class="col-md-2">
+    <div class="input-group input-group-sm">
+      <div class="input-group-prepend">
+        <button class="btn btn-primary" type="button" [disabled]="nropag == 0" (click)="pagina_anterior()">
+          <i class="fa fa-chevron-left"></i>
+        </button>
+      </div>
+      <input type="text" readonly class="form-control" value="Pagina {{nropag + 1}}">
+      <div class="input-group-append">
+        <button class="btn btn-primary" type="button" [disabled]="cant_datos != nrofilas" (click)="pagina_siguiente();">
+          <i class="fa fa-chevron-right"></i>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class="btn-group btn-group-sm btn-block" role="group">
+      <button (click)="listar_datos()" class="btn btn-primary">
+        <i class="fa fa-search"></i> Buscar
+      </button>
+      <button (click)="exportar_excel()" class="btn btn-secondary">
+        <i class="fa fa-download"></i> Exportar
+      </button>
+    </div>
+  </div>
+</div>

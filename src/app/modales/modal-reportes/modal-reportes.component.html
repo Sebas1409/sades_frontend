@@ -1,0 +1,7 @@
+<titulo-modal titulo="Listado de Reportes"></titulo-modal>
+
+<div class="list-group list-group-flush p-0">
+  <div class="list-group-item p-0 ptsans" (click)="abrir_link(rep.url)" *ngFor="let rep of listado_reportes">
+    <i class="fa fa-chart-bar mr-1"></i> {{rep.nombre | uppercase}}
+  </div>
+</div>

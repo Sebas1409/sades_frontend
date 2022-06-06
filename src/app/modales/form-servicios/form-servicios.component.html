@@ -1,0 +1,68 @@
+<titulo-modal [titulo]="_titulo"></titulo-modal>
+
+<form (ngSubmit)="validar_accion()">
+  <div class="row">
+    <div class="col-md-6">
+      <div class='form-group'>
+        <label class='control-label' for='tarea'>Area*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': tarea.invalid}" name='inp_tarea'
+          [(ngModel)]='item.idarea' [formControl]='tarea' (change)="listar_sectores(tarea.value)">
+          <option value='null' disabled selected>Seleccione Area</option>
+          <option *ngFor='let opt of listado_areas' [value]='opt.idarea'>{{opt.nombre | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class='form-group'>
+        <label class='control-label' for='tsector'>Sector*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': tsector.invalid}" name='inp_tsector'
+          [(ngModel)]='item.idsector' [formControl]='tsector'>
+          <option value='null' disabled selected>Seleccione Sector</option>
+          <option *ngFor='let opt of listado_sectores' [value]='opt.idsector'>{{opt.nombre | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <label class='control-label' for='tnombre'>Nombre*:</label>
+    <input type='text' [ngClass]="{'is-invalid': tnombre.invalid}" class='form-control' required [formControl]='tnombre'
+      name='inp_tnombre' [(ngModel)]='item.nombre' placeholder='Ingrese Nombre'>
+  </div>
+
+  <div class="row">
+    <div class="col-md-4">
+      <div class='form-group'>
+        <label class='control-label' for='tdias'>Vigencia (dias)*:</label>
+        <input type='number' [ngClass]="{'is-invalid': tdias.invalid}" class='form-control' required
+          [formControl]='tdias' name='inp_tdias' [(ngModel)]='item.dias_vigencia' placeholder='Ingrese Vigencia (dias)'>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class='form-group'>
+        <label class='control-label' for='tsesiones'>Sesiones*:</label>
+        <input type='number' [ngClass]="{'is-invalid': tsesiones.invalid}" class='form-control' required
+          [formControl]='tsesiones' name='inp_tsesiones' [(ngModel)]='item.cant_sesiones'
+          placeholder='Ingrese Sesiones'>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class='form-group'>
+        <label class='control-label' for='tpventa'>Costo (S/)*:</label>
+        <input type='number' [ngClass]="{'is-invalid': tpventa.invalid}" class='form-control' required
+          [formControl]='tpventa' name='inp_tpventa' [(ngModel)]='item.precio_venta' placeholder='Ingrese Costo'>
+      </div>
+    </div>
+  </div>
+
+  <div class='form-group'>
+    <label class='control-label' for='tobservaciones'>Observaciones*:</label>
+    <textarea class='form-control' rows="2" name='inp_tobservaciones' [(ngModel)]='item.observaciones'
+      placeholder='Ingrese Observaciones'></textarea>
+  </div>
+
+  <button type="submit" class="btn btn-success mr-1"
+    *ngIf="tarea.valid && tsector.valid && tnombre.valid && tdias.valid && tsesiones.valid && tpventa.valid"
+    [disabled]="_guardando">Guardar</button>
+  <button type="button" class="btn btn-danger" (click)="cerrar_ventana(false)">Cancelar</button>
+</form>

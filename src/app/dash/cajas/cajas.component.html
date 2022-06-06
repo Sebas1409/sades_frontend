@@ -1,0 +1,106 @@
+<div class="row " *ngIf="_ulogin">
+  <div class="col-md-3">
+    <div class="input-group" *ngIf="_ulogin.nivel == 1">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Area:</span>
+      </div>
+      <select (change)="listar_sectores(idarea.value)" #idarea="ngModel" class='form-control' name='inp_farea'
+        [(ngModel)]='farea'>
+        <option value='null' disabled selected>Seleccione Area</option>
+        <option *ngFor='let opt of listado_areas' [value]='opt.idarea'>{{opt.nombre | uppercase}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="input-group">
+      <div class="input-group-prepend">
+        <span class="input-group-text">Sectores:</span>
+      </div>
+      <select (change)="buscar_caja(idsector.value)" #idsector="ngModel" class='form-control' name='inp_fsector'
+        [(ngModel)]='fsector'>
+        <option value='null' disabled selected>Seleccione Sector</option>
+        <option *ngFor='let opt of listado_sectores' [value]='opt.idsector'>{{opt.nombre | uppercase}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-6 text-right">
+    <button class="btn btn-success" *ngIf="cajaabierta.idcaja" type="button" (click)="cerrar_caja()">Cerrar
+      Caja</button>
+  </div>
+</div>
+
+<div class="row mt-3 mb-3" *ngIf="cajaabierta.idcaja">
+  <div class="col-md-3">
+    <div class="card border-primary">
+      <div class="card-body">
+        <span class="text-muted">Hora de Apertura:</span>
+        <div class="text-right">
+          <h4><strong>{{cajaabierta.fecha_apertura | date:'dd/MM/yyyy'}} {{cajaabierta.hora_apertura}}</strong></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card border-warning">
+      <div class="card-body">
+        <span class="text-muted">Monto de Apertura:</span>
+        <div class="text-right">
+          <h4><strong>{{cajaabierta.monto_apertura | number:'1.2-2'}}</strong></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card border-success">
+      <div class="card-body">
+        <span class="text-muted">Total Pagos:</span>
+        <div class="text-right">
+          <h4><strong>{{total_pagos | number:'1.2-2'}}</strong></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="col-md-3">
+    <div class="card border-secondary">
+      <div class="card-body">
+        <span class="text-muted">Monto Cierre:</span>
+        <div class="text-right">
+          <h4><strong>{{cajaabierta.monto_cierre | number:'1.2-2'}}</strong></h4>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th width="12.5%">Fecha</th>
+        <th width="12.5%">Codigo Doc</th>
+        <th>Cliente</th>
+        <th>Descripción</th>
+        <th>Empleado</th>
+        <th width="12.5%">Metodo Pago</th>
+        <th width="12.5%">Monto Pago</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pago of listado_datos">
+        <td align="center">{{pago.fecha_pago | date:'dd/MM/yyyy'}}</td>
+        <td align="center">{{pago.codigo_doc}}</td>
+        <td>{{pago.cliente | uppercase}}</td>
+        <td>{{pago.servicio ? pago.servicio : 'PAGO POR VENTA'}}</td>
+        <td align="center">{{pago.empleado | uppercase}}</td>
+        <td align="center">{{pago.metodo_pago | metodopago}}</td>
+        <td align="center">{{pago.monto_pago | number:'1.2-2'}}</td>
+      </tr>
+    </tbody>
+    <tfoot>
+      <tr>
+        <td colspan="6" align="right"><strong>TOTAL:</strong></td>
+        <td align="center"><strong>{{total_pagos | number:'1.2-2'}}</strong></td>
+      </tr>
+    </tfoot>
+  </table>
+</div>

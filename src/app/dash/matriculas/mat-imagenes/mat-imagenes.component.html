@@ -1,0 +1,23 @@
+<div class="card border-warning mt-3">
+  <div class="card-header">
+    <strong>Imagenes Registradas</strong>
+  </div>
+  <div class="card-body">
+    <div class="text-right">
+      <button (click)="mostrar_modal_imagenes()" mat-mini-fab class="bg-success">
+        <mat-icon>add</mat-icon>
+      </button>
+    </div>
+
+    <div class="row">
+      <div class="col-md-3" (click)="mostrar_imagen(ind)" *ngFor="let img of listado_imagenes; let ind = index">
+        <div class="card mb-3">
+          <img class="w-100" [src]="img.thumb" alt="">
+          <div class="card-body">
+            {{img.date | date:'dd/MM/yyyy'}}
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

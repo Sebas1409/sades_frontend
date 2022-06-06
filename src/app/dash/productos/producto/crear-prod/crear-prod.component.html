@@ -1,0 +1,88 @@
+<titulo-seccion [titulo]="_titulo_componente" subtitulo="Mantenimiento de Productos" [anterior]="true">
+</titulo-seccion>
+
+<form (ngSubmit)="guardar_cambios()">
+  <div class="row">
+    <div class="col-md-2">
+      <upload-image [url_imagen]="item.imagen" (guardado)="imagen_subida($event)"></upload-image>
+    </div>
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-4">
+          <div class='form-group'>
+            <label class='control-label' for='ttipoprod'>Tipo de Producto*:</label>
+            <select class='form-control' [ngClass]="{'is-invalid': ttipoprod.invalid}" name='inp_ttipoprod'
+              [(ngModel)]='item.idtipoprod' [formControl]='ttipoprod'>
+              <option value='null' disabled selected>Seleccione Tipo de Producto</option>
+              <option *ngFor='let opt of listado_tipos_producto' [value]='opt.idtipoprod'>{{opt.nombre | uppercase}}
+              </option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class='form-group'>
+            <label class='control-label' for='tmarca'>Marca*:</label>
+            <select class='form-control' [ngClass]="{'is-invalid': tmarca.invalid}" name='inp_tmarca'
+              [(ngModel)]='item.idmarca' [formControl]='tmarca'>
+              <option value='null' disabled selected>Seleccione Marca</option>
+              <option *ngFor='let opt of listado_marcas' [value]='opt.idmarca'>{{opt.nombre | uppercase}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class='form-group'>
+            <label class='control-label' for='tunidad'>Unidad*:</label>
+            <select class='form-control' [ngClass]="{'is-invalid': tunidad.invalid}" name='inp_tunidad'
+              [(ngModel)]='item.idunidad' [formControl]='tunidad'>
+              <option value='null' disabled selected>Seleccione Unidad</option>
+              <option *ngFor='let opt of listado_unidades' [value]='opt.idunidad'>{{opt.nombre | uppercase}}</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-8">
+          <div class='form-group'>
+            <label class='control-label' for='tnombre'>Nombre*:</label>
+            <input type='text' [ngClass]="{'is-invalid': tnombre.invalid}" class='form-control' required
+              [formControl]='tnombre' name='inp_tnombre' [(ngModel)]='item.nombre' placeholder='Ingrese Nombre'>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class='form-group'>
+            <label class='control-label' for='tpcompra'>P. Compra*:</label>
+            <input type='number' [ngClass]="{'is-invalid': tpcompra.invalid}" class='form-control' required
+              [formControl]='tpcompra' name='inp_tpcompra' [(ngModel)]='item.precio_compra'
+              placeholder='Ingrese P. Compra'>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class='form-group'>
+            <label class='control-label' for='tpventa'>P. Venta*:</label>
+            <input type='number' [ngClass]="{'is-invalid': tpventa.invalid}" class='form-control' required
+              [formControl]='tpventa' name='inp_tpventa' [(ngModel)]='item.precio_venta' placeholder='Ingrese P. Venta'>
+          </div>
+        </div>
+      </div>
+
+      <div class='form-group'>
+        <label class='control-label' for='tobservaciones'>Observaciones*:</label>
+        <textarea class='form-control' name='inp_tobservaciones' [(ngModel)]='item.observaciones'
+          placeholder='Ingrese Observaciones'></textarea>
+      </div>
+
+      <button type="submit"
+        *ngIf="ttipoprod.valid && tunidad.valid && tmarca.valid && tnombre.valid && tpcompra.valid && tpventa.valid"
+        class="btn btn-success mr-1">Registrar</button>
+      <button (click)="regresar_listado()" type="button" class="btn btn-danger">Volver</button>
+
+      <div class="card border-primary mt-3" *ngIf="_editando && _params">
+        <div class="card-header">
+          <strong>STOCK POR SECTOR</strong>
+        </div>
+        <ajuste-inventario [idproducto]="_params.idsel"></ajuste-inventario>
+      </div>
+    </div>
+  </div>
+</form>

@@ -1,0 +1,99 @@
+<titulo-seccion [titulo]="_titulo_componente" subtitulo="Docentes" [anterior]="true">
+</titulo-seccion>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class='form-group'>
+      <label class='control-label' for='taula'>Cursos*:</label>
+      <select class='form-control' name='inp_grado'[(ngModel)]="idseccion" [disabled]="!idbimestre" (change)="buscar_alumnos();nueva_busqueda()">
+        <option value='null' disabled selected>Seleccione Curso</option>
+        <option *ngFor="let tuto of tutorias_asignadas" [value]="tuto.codigo">{{tuto.nombre | uppercase}}</option>
+      </select>
+    </div>
+  </div>
+  <div class="col-md-2">
+    <div class='form-group'>
+      <label class='control-label' for='taula'>Fecha Inicio*:</label>
+      <input type="date" class="form-control">
+    </div>
+  </div>
+</div>
+
+<!--<div class="row" *ngIf="listado_de_bimestres.length == 1">-->
+<div class="row">
+  <div class="col-md-12">
+    <table aria-hidden="true" class="table table-striped">
+      <thead>
+        <tr>
+          <th width="5%" rowspan="2">Nro.</th>
+          <th rowspan="2">Alumno</th>
+          <th rowspan="2" width="7.5%">Asistencia</th>
+          <th width="15%" colspan="2">Faltas</th>
+          <th width="15%" colspan="2">Tardanzas</th>
+          <th width="22.5%" colspan="3">Estadisticas</th>
+        </tr>
+        <tr>
+          <th width="7.5%">Jus.</th>
+          <th width="7.5%">Injus.</th>
+          <th width="7.5%">Jus.</th>
+          <th width="7.5%">Injus.</th>
+          <th width="7.5%">Aa</th>
+          <th width="7.5%">Ad</th>
+          <th width="7.5%">SE</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let boleta of boleta_notas_aula; let nro_orden = index;">
+          <td width="3%" align="center">{{nro_orden + 1}}</td>
+          <td id="row_{{boleta.alumno.idalumno}}">
+            {{boleta.alumno.nombres | uppercase}} {{boleta.alumno.apellidos | uppercase}}
+          </td>
+          <td>
+            <div class="form-group" style="margin: 0px !important;" [ngClass]="{'has-error': boleta.asistencia >= 60 || boleta.asistencia <= -1}">
+              <input type="number" step="1" min="0" max="60" class="form-control" name="txt_{{ind}}" [(ngModel)]="boleta.asistencia">
+            </div>
+          </td>
+          <td>
+            <div class="form-group" style="margin: 0px !important;" [ngClass]="{'has-error': boleta.faltas_justificadas >= 60 || boleta.faltas_justificadas <= -1}">
+              <input type="number" step="1" min="0" max="60" class="form-control" name="txt_{{ind}}" [(ngModel)]="boleta.faltas_justificadas">
+            </div>
+          </td>
+          <td>
+            <div class="form-group" style="margin: 0px !important;" [ngClass]="{'has-error': boleta.faltas_injustificadas >= 60 || boleta.faltas_injustificadas <= -1}">
+              <input type="number" step="1" min="0" max="60" class="form-control" name="txt_{{ind}}" [(ngModel)]="boleta.faltas_injustificadas">
+            </div>
+          </td>
+          <td>
+            <div class="form-group" style="margin: 0px !important;" [ngClass]="{'has-error': boleta.tardanzas_justificadas >= 60 || boleta.tardanzas_justificadas <= -1}">
+              <input type="number" step="1" min="0" max="60" class="form-control" name="txt_{{ind}}" [(ngModel)]="boleta.tardanzas_justificadas">
+            </div>
+          </td>
+          <td>
+            <div class="form-group" style="margin: 0px !important;" [ngClass]="{'has-error': boleta.tardanzas_injustificadas >= 60 || boleta.tardanzas_injustificadas <= -1}">
+              <input type="number" step="1" min="0" max="60" class="form-control" name="txt_{{ind}}" [(ngModel)]="boleta.tardanzas_injustificadas">
+            </div>
+          </td>
+          <td>
+            <div class="form-group" style="margin: 0px !important;" [ngClass]="{'has-error': boleta.aprobadas >= 60 || boleta.aprobadas <= -1}">
+              <input type="number" step="1" min="0" max="60" class="form-control" name="txt_{{ind}}" [(ngModel)]="boleta.aprobadas">
+            </div>
+          </td>
+          <td>
+            <div class="form-group" style="margin: 0px !important;" [ngClass]="{'has-error': boleta.desaprobadas >= 60 || boleta.desaprobadas <= -1}">
+              <input type="number" step="1" min="0" max="60" class="form-control" name="txt_{{ind}}" [(ngModel)]="boleta.desaprobadas">
+            </div>
+          </td>
+          <td>
+            <div class="form-group" style="margin: 0px !important;" [ngClass]="{'has-error': boleta.sin_evaluar >= 60 || boleta.sin_evaluar <= -1}">
+              <input type="number" step="1" min="0" max="60" class="form-control" name="txt_{{ind}}" [(ngModel)]="boleta.sin_evaluar">
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="alert alert-danger" *ngIf="msg_validacion">
+      <strong>{{msg_validacion | uppercase}}</strong>
+    </div>
+    <button *ngIf="listado_alumnos.length > 0 || !existen_notas" mat-raised-button class="btn btn-primary btn-sm" (click)="registrar_boleta()">REGISTRAR</button>
+  </div>
+</div>

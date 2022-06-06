@@ -1,0 +1,81 @@
+<titulo-modal [titulo]="_titulo"></titulo-modal>
+
+<form (ngSubmit)="validar_accion()">
+  <div class="row">
+    <div class="col-md-8">
+      <div class='form-group'>
+        <label class='control-label' for='tproducto'>Producto:*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': tproducto.invalid}" name='inp_tproducto'
+          [(ngModel)]='item.idproducto' [formControl]='tproducto'>
+          <option value='null' disabled selected>Seleccione Producto:</option>
+          <option *ngFor='let opt of listado_productos' [value]='opt.idproducto'>{{opt.nombre | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class='form-group'>
+        <label class='control-label' for='ttipomov'>Operacion*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': ttipomov.invalid}" name='inp_ttipomov'
+          [(ngModel)]='item.esingreso' [formControl]='ttipomov' (change)="filtrar_motivos(ttipomov.value)">
+          <option value='null' disabled selected>Seleccione Operacion</option>
+          <option *ngFor='let opt of listado_tipos_movimiento' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class='form-group'>
+        <label class='control-label' for='tarea'>Area*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': tarea.invalid}" name='inp_tarea'
+          [(ngModel)]='item.idarea' [formControl]='tarea' (change)="buscar_sectores(tarea.value)">
+          <option value='null' disabled selected>Seleccione Area</option>
+          <option *ngFor='let opt of listado_areas' [value]='opt.idarea'>{{opt.nombre | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class='form-group'>
+        <label class='control-label' for='tsector'>Sector*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': tsector.invalid}" name='inp_tsector'
+          [(ngModel)]='item.idsector' [formControl]='tsector'
+          (change)="buscar_stock_actual(tproducto.value, tsector.value)">
+          <option value='null' disabled selected>Seleccione Sector</option>
+          <option *ngFor='let opt of listado_sectores' [value]='opt.idsector'>{{opt.nombre | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tsactual'>Stock Actual*:</label>
+        <input readonly type='number' class='form-control' name='inp_tsactual' [(ngModel)]='item.cant_anterior'
+          placeholder='Ingrese Stock Actual'>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class='form-group'>
+        <label class='control-label' for='tmotivo'>Motivo*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': tmotivo.invalid}" name='inp_tmotivo'
+          [(ngModel)]='item.idmotmovi' [formControl]='tmotivo'>
+          <option value='null' disabled selected>Seleccione Motivo</option>
+          <option *ngFor='let opt of listado_motivos' [value]='opt.idmotmovi'>{{opt.nombre | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-3">
+      <div class='form-group'>
+        <label class='control-label' for='tcantidad'>Cantidad*:</label>
+        <input type='number' [ngClass]="{'is-invalid': tcantidad.invalid}" class='form-control' required
+          [formControl]='tcantidad' name='inp_tcantidad' [(ngModel)]='item.cant_mov' placeholder='Ingrese Cantidad'>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-success mr-1" [disabled]="_guardando"
+    *ngIf="ttipomov.valid && tproducto.valid && tarea.valid && tsector.valid && tmotivo.valid && tcantidad.valid">Guardar</button>
+  <button type="button" class="btn btn-danger" (click)="cerrar_ventana(false)">Cancelar</button>
+</form>

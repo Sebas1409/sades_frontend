@@ -1,0 +1,73 @@
+<titulo-seccion [titulo]="_titulo_componente" subtitulo="Ubicación y Suficiencia" [anterior]="true">
+</titulo-seccion>
+<div class="row">
+    <div class="col-md-3">
+        <div class='form-group'>
+            <label class='control-label' for='taula'>Cursos a Asignar*:</label>
+            <select class='form-control' name='inp_taula' [(ngModel)]='item.curso'>
+                <option value='null' disabled selected>Seleccione Curso</option>
+                <option *ngFor='let opt of listado_cursos' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+            </select>
+        </div>
+    </div>
+    <div class="col-md-3">
+        <div class='form-group'>
+            <label class='control-label' for='tnrodni'>Busqueda Docente:</label>
+            <div class="input-group mb-3">
+                <input type='text' class='form-control' #tnrodni="ngModel" name='inp_tnrodni' [(ngModel)]='item.docente'
+                    placeholder='Ingrese DNI'>
+                <div class="input-group-append">
+                    <button class="btn btn-secondary" type="button">
+                        <i class="fa fa-search" aria-hidden="true"></i>
+                    </button>
+                    <button class="btn btn-primary" type="button">
+                        <i class="fa fa-plus" aria-hidden="true"></i>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-5">
+        <div class='form-group'>
+            <label class='control-label' for='tnrodni'>Nombres Completo Docente:</label>
+            <div class="input-group mb-3">
+                <input type='text' class='form-control' #tnrodni="ngModel" name='inp_tnrodni'
+                    [(ngModel)]='item.nombre_completo' placeholder='Nombre Docente'>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-1">
+        <div class='form-group text-center'>
+            <label class='control-label' for='tnrodni'> Asignar Docente </label>
+            <button mat-mini-fab class="bg-success" (click)="asignacionDocente()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+    </div>
+</div>
+<div class="table-responsive mt-3">
+    <table class="table table-striped" aria-hidden="true">
+      <thead>
+        <tr>
+          <th>Nro</th>
+          <th>Docente Asignado</th>
+          <th style="width: 10%;">Curso</th>
+          <th style="width: 10%;">Fecha Asignación</th>
+          <th style="width: 7.5%;" class="celda-derecha">
+            Opciones
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let item of listado_asignaciones;let i = index ">
+          <td> {{i+1}} </td>
+          <td (click)="entrar_a_item(true, item)">{{item.docente_asigando | uppercase}}</td>
+          <td (click)="entrar_a_item(true, item)" style="text-align: center;">{{item.curso_asignado }}</td>
+          <td (click)="entrar_a_item(true, item)" style="text-align: center;">{{item.fecha_asignacion | date:'dd/MM/yyyy'}}</td>
+          <td style="text-align: right;">
+            <mat-icon (click)="eliminar_item(i)" class="text-danger">delete</mat-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>

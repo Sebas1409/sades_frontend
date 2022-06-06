@@ -1,0 +1,40 @@
+<titulo-seccion titulo="Productos" subtitulo="Mantenimiento de Productos" [anterior]="true">
+</titulo-seccion>
+
+<filtro-simple [filtroareas]="false" [listado_filtros]="listado_filtros" [cant_datos]="listado_datos.length"
+  (buscar_datos)="listar_datos($event)" (exportar)="exportar_excel()">
+</filtro-simple>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th width="12.5%">Tipo</th>
+        <th width="12.5%">Marca</th>
+        <th width="12.5%">Unidad</th>
+        <th>Nombre</th>
+        <th width="10%">P. Compra</th>
+        <th width="10%">P. Venta</th>
+        <th width="7.5%" class="celda-derecha">
+          <button (click)="entrar_a_item(false)" mat-mini-fab class="bg-success">
+            <mat-icon>add</mat-icon>
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listado_datos">
+        <td (click)="entrar_a_item(true, item)" align="center">{{item.tipo | uppercase}}</td>
+        <td (click)="entrar_a_item(true, item)" align="center">{{item.marca | uppercase}}</td>
+        <td (click)="entrar_a_item(true, item)" align="center">{{item.unidad | uppercase}}</td>
+        <td (click)="entrar_a_item(true, item)">{{item.nombre | uppercase}}</td>
+        <td (click)="entrar_a_item(true, item)" align="center">{{item.precio_compra | number:'1.2-2'}}</td>
+        <td (click)="entrar_a_item(true, item)" align="center">{{item.precio_venta | number:'1.2-2'}}</td>
+        <td align="right">
+          <mat-icon (click)="entrar_a_item(true, item)" class="text-primary">edit</mat-icon>
+          <mat-icon (click)="eliminar_item(item.idproducto)" class="text-danger">delete</mat-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

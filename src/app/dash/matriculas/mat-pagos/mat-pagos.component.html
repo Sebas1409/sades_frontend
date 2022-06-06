@@ -1,0 +1,50 @@
+<div class="card border-primary">
+  <div class="card-header">
+    <strong>Pagos de Cita</strong>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th width="20%">Doc.</th>
+          <th width="20%">Fecha</th>
+          <th>Metodo de Pago</th>
+          <th width="20%">Monto Pagado</th>
+          <th width="7.5%" class="celda-derecha" *ngIf="item.idestadomat == 1">
+            <button (click)="mostrar_modal_pagos()" mat-mini-fab class="bg-success">
+              <mat-icon>add</mat-icon>
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let pago of pagos_matricula; let ind = index;">
+          <td align="center">{{pago.codigo_doc}}</td>
+          <td align="center">{{pago.fecha_pago | date:'dd/MM/yyyy'}}</td>
+          <td>
+            <span class="float-right badge bg-secondary text-white" *ngIf="pago.congelado == 1">
+              <small>Frozen!</small>
+            </span>
+            {{pago.metodo_pago | metodopago}}
+          </td>
+          <td align="center">{{pago.monto_pago | number:'1.2-2'}}</td>
+          <td align="right" *ngIf="item.idestadomat == 1">
+            <mat-icon class="text-danger" (click)="eliminar_pago(pago.idpago)">delete</mat-icon>
+          </td>
+        </tr>
+      </tbody>
+      <tfoot>
+        <tr>
+          <td colspan="3" align="right"><strong>TOTAL PAGADO:</strong></td>
+          <td align="center">{{item.pago_total | number:'1.2-2'}}</td>
+          <td *ngIf="item.idestadomat == 1"></td>
+        </tr>
+        <tr *ngIf="item.total_deuda > 0">
+          <td colspan="3" align="right"><strong>TOTAL DEUDA:</strong></td>
+          <td align="center">{{item.total_deuda | number:'1.2-2'}}</td>
+          <td *ngIf="item.idestadomat == 1"></td>
+        </tr>
+      </tfoot>
+    </table>
+  </div>
+</div>

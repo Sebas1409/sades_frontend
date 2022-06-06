@@ -1,0 +1,54 @@
+<titulo-seccion titulo="Registro de Anotaciones" subtitulo="Docentes" [anterior]="true">
+</titulo-seccion>
+
+<div class="row">
+  <div class="col-md-4">
+    <div class='form-group'>
+      <label class='control-label' for='taula'>Cursos*:</label>
+      <select class='form-control' name='inp_grado'[(ngModel)]="idseccion" (change)="buscar_alumnos();nueva_busqueda()">
+        <option value='null' disabled selected>Seleccione Curso</option>
+        <option *ngFor="let tuto of tutorias_asignadas" [value]="tuto.codigo">{{tuto.nombre | uppercase}}</option>
+      </select>
+    </div>
+  </div>
+  <!--<div class="col-md-4">
+    <div class='form-group'>
+      <label class='control-label' for='taula'>Alumno*:</label>
+      <select class='form-control' name='inp_grado'[(ngModel)]="idseccion" [disabled]="!idbimestre" (change)="buscar_alumnos();nueva_busqueda()">
+        <option value='null' disabled selected>Seleccione Alumno</option>
+        <option *ngFor="let tuto of tutorias_asignadas" [value]="tuto.codigo">{{tuto.nombre | uppercase}}</option>
+      </select>
+    </div>
+  </div>-->
+</div>
+
+<div class="row">
+  <div class="col-md-12">
+    <table aria-hidden="true" class="table table-striped">
+      <thead>
+        <tr>
+          <th style="width: 3%;" >Nro.</th>
+          <th>Alumno</th>
+          <th style="width: 50%;">Observacion</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let boleta of boleta_notas_aula; let nro_orden = index;">
+          <td style="width: 3%;text-align: center;">{{nro_orden + 1}}</td>
+          <td id="row_{{boleta.alumno.idalumno}}">
+            {{boleta.alumno.nombres | uppercase}} {{boleta.alumno.apellidos | uppercase}}
+          </td>
+          <td>
+            <div class="form-group" style="margin: 0px !important;">
+              <input type="text" class="form-control" name="txt_{{nro_orden}}" [(ngModel)]="boleta.observaciones">
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+    <div class="alert alert-danger" *ngIf="msg_validacion">
+      <strong>{{msg_validacion | uppercase}}</strong>
+    </div>
+    <button *ngIf="listado_alumnos.length > 0 || !existen_notas" class="btn btn-primary btn-sm" (click)="registrar_boleta()">REGISTRAR</button>
+  </div>
+</div>

@@ -1,0 +1,25 @@
+a {
+  text-decoration: none;
+  color: #333;
+}
+.pretitulo {
+  font-size: 11px;
+  color: #333;
+}
+.titulo {
+  font-size: 18px;
+  line-height: 16px;
+}
+.subtitulo {
+  font-size: 13px;
+  color: rgb(175, 175, 175);
+}
+.salto-linea {
+  height: 5px;
+}
+hr {
+  &.dashed {
+    border: 0.1mm rgb(170, 170, 170) dashed !important;
+    margin: 5px 0px 20px 0px !important;
+  }
+}

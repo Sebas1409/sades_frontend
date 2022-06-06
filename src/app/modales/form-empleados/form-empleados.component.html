@@ -1,0 +1,77 @@
+<titulo-modal [titulo]="_titulo"></titulo-modal>
+
+<form (ngSubmit)="validar_accion()">
+  <div class="row">
+    <div class="col-md-4">
+      <div class='form-group'>
+        <label class='control-label' for='tarea'>Area*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': tarea.invalid}" name='inp_tarea'
+          [(ngModel)]='item.idarea' [formControl]='tarea'>
+          <option value='null' disabled selected>Seleccione Area</option>
+          <option *ngFor='let opt of listado_areas' [value]='opt.idarea'>{{opt.nombre | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class='form-group'>
+        <label class='control-label' for='tcargo'>Cargo*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': tcargo.invalid}" name='inp_tcargo'
+          [(ngModel)]='item.idcargo' [formControl]='tcargo'>
+          <option value='null' disabled selected>Seleccione Cargo</option>
+          <option *ngFor='let opt of listado_cargos' [value]='opt.idcargo'>{{opt.nombre | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class='form-group'>
+        <label class='control-label' for='testado'>Estado*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': testado.invalid}" name='inp_testado'
+          [(ngModel)]='item.estado' [formControl]='testado'>
+          <option value='null' disabled selected>Seleccione Estado</option>
+          <option *ngFor='let opt of listado_estados' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class='form-group'>
+        <label class='control-label' for='tnombre'>Nombre*:</label>
+        <input type='text' [ngClass]="{'is-invalid': tnombre.invalid}" class='form-control' required
+          [formControl]='tnombre' name='inp_tnombre' [(ngModel)]='item.nombres' placeholder='Ingrese Nombre'>
+      </div>
+    </div>
+    <div class="col-md-6">
+
+      <div class='form-group'>
+        <label class='control-label' for='tapellido'>Apellidos*:</label>
+        <input type='text' [ngClass]="{'is-invalid': tapellido.invalid}" class='form-control' required
+          [formControl]='tapellido' name='inp_tapellido' [(ngModel)]='item.apellidos' placeholder='Ingrese Apellidos'>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class='form-group'>
+        <label class='control-label' for='tnrodni'>Nro. DNI*:</label>
+        <input type='text' [ngClass]="{'is-invalid': tnrodni.invalid}" class='form-control' required
+          [formControl]='tnrodni' name='inp_tnrodni' [(ngModel)]='item.nrodni' placeholder='Ingrese Nro. DNI'>
+      </div>
+    </div>
+    <div class="col-md-6" *ngIf="!_edicion">
+      <div class='form-group'>
+        <label class='control-label' for='tclave'>Clave*:</label>
+        <input type='password' class='form-control' required name='inp_tclave' [(ngModel)]='item.clave'
+          placeholder='Ingrese Clave'>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-success mr-1"
+    *ngIf="tapellido.valid && tnombre.valid && tarea.valid && tcargo.valid && testado.valid && tnrodni.valid"
+    [disabled]="_guardando">Guardar</button>
+
+  <button type="button" class="btn btn-danger" (click)="cerrar_ventana(false)">Cancelar</button>
+</form>

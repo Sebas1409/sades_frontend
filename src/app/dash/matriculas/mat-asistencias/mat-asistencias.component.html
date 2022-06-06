@@ -1,0 +1,33 @@
+<div class="card border-warning mt-3">
+  <div class="card-header">
+    <strong>Asistencias del Matriculado</strong>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th width="5%">#</th>
+          <th width="15%">Fecha</th>
+          <th width="15%">Hora</th>
+          <th>Observaciones</th>
+          <th width="7.5%" class="celda-derecha" *ngIf="idestadomat == 1">
+            <button (click)="mostrar_modal_asistencia(false)" mat-mini-fab class="bg-success">
+              <mat-icon>add</mat-icon>
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let asi of asistencias_matricula; let ind = index;">
+          <td align="center">{{ind+1}}</td>
+          <td align="center">{{asi.fingreso | date:'dd/MM/yyyy'}}</td>
+          <td align="center">{{asi.hingreso}}</td>
+          <td>{{asi.observaciones | uppercase}}</td>
+          <td align="right" *ngIf="idestadomat == 1">
+            <mat-icon class="text-danger" (click)="eliminar_asistencia(asi.idasistencia)">delete</mat-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

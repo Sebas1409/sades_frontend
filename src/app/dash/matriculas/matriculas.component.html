@@ -1,0 +1,40 @@
+<titulo-seccion titulo="Listado de Matrículas Registradas" subtitulo="Matricula" [anterior]="true">
+</titulo-seccion>
+
+<filtro-tabla *ngIf="_params" [confechas]="true" [listado_filtros]="listado_filtros" [cant_datos]="listado_datos.length"
+  (buscar_datos)="listar_datos($event)" (exportar)="exportar_excel()">
+</filtro-tabla>
+
+<div class="table-responsive mt-3">
+  <table class="table table-striped" aria-hidden="true">
+    <thead>
+      <tr>
+        <th>Nro</th>
+        <th>Alumno</th>
+        <th style="width: 10%;">Fecha Matricula</th>
+        <th style="width: 10%;">Tipo Matricula</th>
+        <th style="width: 10%;">Mensualidad</th>
+        <th style="width: 10%;">Curso</th>
+        <th style="width: 7.5%;" class="celda-derecha">
+          <button (click)="entrar_a_item(false)" mat-mini-fab class="bg-success">
+            <mat-icon>add</mat-icon>
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listado_datos;let i = index ">
+        <td> {{i+1}} </td>
+        <td (click)="entrar_a_item(true, item)">{{item.alumno | uppercase}}</td>
+        <td (click)="entrar_a_item(true, item)" style="text-align: center;">{{item.fmatricula | date:'dd/MM/yyyy'}}</td>
+        <td (click)="entrar_a_item(true, item)" style="text-align: center;">{{item.tipo_matricula | uppercase}}</td>
+        <td (click)="entrar_a_item(true, item)" style="text-align: center;">{{item.monto_mensual | number:'1.2-2'}}</td>
+        <td (click)="entrar_a_item(true, item)" style="text-align: center;" > {{item.curso}}</td>
+        <td style="text-align: right;">
+          <mat-icon (click)="entrar_a_item(true, item)" class="text-primary">edit</mat-icon>
+          <mat-icon (click)="eliminar_item(i)" class="text-danger">delete</mat-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

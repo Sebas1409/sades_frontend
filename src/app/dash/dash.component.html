@@ -1,0 +1,144 @@
+<mat-sidenav-container class="dash-wrapper" hasBackdrop="false">
+  <mat-sidenav #sidenav mode="side" opened="false" class="sidenav">
+    <div *ngIf="ulogin">
+      <div class="p-3 admin" *ngIf="!ulogin.idarea">MENU ADMINISTRADOR</div>
+      <div class="logo" *ngIf="ulogin.idarea"
+        [ngClass]="{'fitness': ulogin.idarea == 1, 'beletza': ulogin.idarea == 2}">
+        <img src="{{ulogin.idarea == 1 ? '/assets/logo_fitness.jpg' : '/assets/logo_beletza.jpg'}}" alt="">
+      </div>
+    </div>
+
+    <div class="list-group list-group-flush" *ngIf="ulogin">
+      <button tabindex="-1" type="button"
+        class="list-group-item d-flex justify-content-between align-items-center pt-2 pr-2 pb-2 pl-3"
+        (click)="sidenav.toggle()" (click)="entrar_a_url(opt)" *ngFor="let opt of menu_sidenav">
+        {{opt.nombre | uppercase}}
+        <i class="pull-right fa {{opt.icono}} text-primary mr-2" aria-hidden="true"></i>
+      </button>
+      <button tabindex="-1" type="button"
+        class="list-group-item d-flex justify-content-between align-items-center pt-2 pr-2 pb-2 pl-3"
+        (click)="sidenav.toggle()" (click)="mostrar_listado_reportes()">
+        REPORTES <i class="pull-right fa fa-chart-bar text-primary mr-2" aria-hidden="true"></i>
+      </button>
+    </div>
+  </mat-sidenav>
+
+  <mat-sidenav-content>
+    <div class="pos-f-t">
+      <div class="collapse" id="navbarToggleExternalContent">
+        <div class="zona-ulogin p-4 text-white" *ngIf="ulogin">
+          <h5 class="mb-0">Bienvenido: {{ulogin.nombre_completo | uppercase}}</h5>
+          <div>Cargo: {{ulogin.cargo}}</div>
+          <div (click)="cerrar_sesion()">
+            <a class="text-white" href="javascript:void(0)"><i class="fas fa-sign-out-alt text-white" aria-hidden="true"></i> Cerrar
+              Sesión</a>
+          </div>
+        </div>
+      </div>
+      <!--<nav *ngIf="ulogin" class="navbar bg-toolbar"
+        [ngClass]="{'admin': !ulogin.idarea, 'fitness': ulogin.idarea == 1, 'beletza': ulogin.idarea == 2}">
+        <span class="navbar-toggler btn-toolbar" type="button" (click)="sidenav.toggle()">
+          <mat-icon class="text-primary">menu</mat-icon>
+        </span>
+        <img *ngIf="ulogin.idarea == 1" src="/assets/imgfitness.png" height="30px" alt="">
+        <img *ngIf="ulogin.idarea == 2" src="/assets/imgbeletza.png" height="30px" alt="">
+
+        <form class="form-inline my-2 my-lg-0" (ngSubmit)="buscar_cliente(tbusdoc.value)">
+          <div class='input-group input-group-sm mr-3'>
+            <div class='input-group-prepend'>
+              <span class='input-group-text' id='basic-addon1'>
+                <i class='fa fa-search' aria-hidden="true"></i>
+              </span>
+            </div>
+            <input type='search' class='form-control' name='inp_tbusqueda' #tbusdoc="ngModel" [(ngModel)]='tbusqueda'
+              placeholder='Ingrese Nro. DOC.'>
+            <div class='input-group-append'>
+              <button class='btn btn-primary' type='submit'>
+                <i class='fa fa-search' style="color: white !important;" aria-hidden="true"></i>
+              </button>
+            </div>
+          </div>
+
+          <span *ngIf="ulogin" class="text-white" style="font-size: 12px; cursor: pointer;" data-toggle="collapse"
+            data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent"
+            aria-expanded="false">
+            <i class="fa fa-user mr-1" aria-hidden="true"></i> {{ulogin.nombre_completo | uppercase}}
+          </span>
+        </form>
+      </nav>-->
+      <nav aria-labelledby="oli" class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <a class="navbar-brand" href="#"> <strong>CIDUNT</strong> </a>
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarTogglerDemo02" aria-controls="navbarTogglerDemo02" aria-expanded="false" aria-label="Toggle navigation">
+          <span class="navbar-toggler-icon"></span>
+        </button>
+      
+        <div class="collapse navbar-collapse" id="navbarTogglerDemo02">
+          <ul class="navbar-nav mr-auto mt-2 mt-lg-0">
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                Usuarios
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                Mantenimiento
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <li><a class="dropdown-item" href="#">Action</a></li>
+                <li><a class="dropdown-item" href="#">Another action</a></li>
+                <li><hr class="dropdown-divider"></li>
+                <li><a class="dropdown-item" href="#">Something else here</a></li>
+              </ul>
+            </li>
+            <!--<li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                Alumnos
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <li><a class="dropdown-item" routerLink="/dash/alumnos">Registro de Asistencia</a></li>
+              </ul>
+            </li>-->
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                Docentes
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <li><a class="dropdown-item" (click)="entrar_a_url(menu_administrador[4])">Registro Anotaciones</a></li>
+                <li><a class="dropdown-item" (click)="entrar_a_url(menu_administrador[5])">Registro Asistencia</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                Matricula
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <li><a class="dropdown-item" (click)="entrar_a_url(menu_administrador[3])">Matriculas</a></li>
+              </ul>
+            </li>
+            <li class="nav-item dropdown">
+              <a class="nav-link dropdown-toggle" href="#" id="navbarScrollingDropdown" role="button" data-toggle="dropdown" aria-expanded="false">
+                Ubicación y Suficiencia
+              </a>
+              <ul class="dropdown-menu" aria-labelledby="navbarScrollingDropdown">
+                <li><a class="dropdown-item" (click)="entrar_a_url(menu_administrador[6])">Listado Eventos</a></li>
+                <li><a class="dropdown-item" (click)="entrar_a_url(menu_administrador[7])">Asignación de Exámen</a></li>
+              </ul>
+            </li>
+          </ul>
+        </div>
+      </nav>
+    </div>
+
+    <encabezado [modulo]="nombre_modulo"></encabezado>
+
+    <div class="creditos text-center ocultar_impresion">
+      ®2022 - Todos los derechos reservados
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

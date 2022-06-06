@@ -1,0 +1,229 @@
+<titulo-seccion [titulo]="_titulo_componente" subtitulo="Mantenimiento de Clientes" [anterior]="true">
+</titulo-seccion>
+
+<form (ngSubmit)="guardar_cambios()">
+  <div class="row">
+    <div class="col-md-2">
+      <upload-image [url_imagen]="item.imagen" (guardado)="imagen_subida($event)"></upload-image>
+    </div>
+    <div class="col-md-10">
+      <div class="row">
+        <div class="col-md-3">
+          <div class='form-group'>
+            <label class='control-label' for='tnrodni'>Nro. DOC*:</label>
+            <input type='number' [ngClass]="{'is-invalid': tnrodni.invalid}" class='form-control' required
+              [formControl]='tnrodni' name='inp_tnrodni' [(ngModel)]='item.nrodni' placeholder='Ingrese Nro. DOC'>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class='form-group'>
+            <label class='control-label' for='tnombres'>Nombres*:</label>
+            <input type='text' [ngClass]="{'is-invalid': tnombres.invalid}" class='form-control' required
+              [formControl]='tnombres' name='inp_tnombres' [(ngModel)]='item.nombres' placeholder='Ingrese Nombres'>
+          </div>
+        </div>
+        <div class="col-md-5">
+          <div class='form-group'>
+            <label class='control-label' for='tapellidos'>Apellidos*:</label>
+            <input type='text' [ngClass]="{'is-invalid': tapellidos.invalid}" class='form-control' required
+              [formControl]='tapellidos' name='inp_tapellidos' [(ngModel)]='item.apellidos'
+              placeholder='Ingrese Apellidos'>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-2">
+          <div class='form-group'>
+            <label class='control-label' for='tcelular'>Celular*:</label>
+            <input type='number' [ngClass]="{'is-invalid': tcelular.invalid}" class='form-control' required
+              [formControl]='tcelular' name='inp_tcelular' [(ngModel)]='item.celular' placeholder='Ingrese Celular'>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class='form-group'>
+            <label class='control-label' for='fnacimiento'>F. Nacimiento*:</label>
+            <input type='date' class='form-control' name='inp_fnacimiento' [(ngModel)]='item.fnacimiento'
+              placeholder='Ingrese F. Nacimiento'>
+          </div>
+        </div>
+        <div class="col-md-2">
+          <div class='form-group'>
+            <label class='control-label' for='tsexo'>Sexo*:</label>
+            <select class='form-control' name='inp_tsexo' [(ngModel)]='item.sexo'>
+              <option value='null' disabled selected>Seleccione Sexo</option>
+              <option *ngFor='let opt of listado_sexos' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="col-md-6">
+          <div class='form-group'>
+            <label class='control-label' for='tdireccion'>Direccion*:</label>
+            <input type='text' class='form-control' name='inp_tdireccion' [(ngModel)]='item.domicilio'
+              placeholder='Ingrese Direccion'>
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="col-md-3">
+          <div class='form-group'>
+            <label class='control-label' for='twhatsapp'>Whatsapp*:</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <img height="16px" src="/assets/redes/whatsapp.png" alt="">
+                </span>
+              </div>
+              <input type='number' class='form-control' name='inp_twhatsapp' [(ngModel)]='item.whatsapp'
+                placeholder='Ingrese Whatsapp'>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class='form-group'>
+            <label class='control-label' for='tfacebook'>Facebook*:</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <img height="16px" src="/assets/redes/facebook.png" alt="">
+                </span>
+              </div>
+              <input type='text' class='form-control' name='inp_tfacebook' [(ngModel)]='item.facebook'
+                placeholder='Ingrese Facebook'>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class='form-group'>
+            <label class='control-label' for='tmessenger'>Messenger*:</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <img height="16px" src="/assets/redes/mensajero.png" alt="">
+                </span>
+              </div>
+              <input type='text' class='form-control' name='inp_tmessenger' [(ngModel)]='item.messenger'
+                placeholder='Ingrese Messenger'>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-3">
+          <div class='form-group'>
+            <label class='control-label' for='tinstagram'>Instagram*:</label>
+            <div class="input-group mb-3">
+              <div class="input-group-prepend">
+                <span class="input-group-text" id="basic-addon1">
+                  <img height="16px" src="/assets/redes/instagram.png" alt="">
+                </span>
+              </div>
+              <input type='text' class='form-control' name='inp_tinstagram' [(ngModel)]='item.instagram'
+                placeholder='Ingrese Instagram'>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="alert alert-info" *ngIf="_editando">
+        <titulo-modal [titulo]="!hay_antecedentes ? 'Registrar Antecedentes' : 'Editar Antecedentes'"></titulo-modal>
+        <div class="row">
+          <div class="col-md-2">
+            <div class='form-group'>
+              <label class='control-label' for='tdiabetes'>Diabetes:</label>
+              <select class='form-control' name='inp_tdiabetes' [(ngModel)]='ante.a_diabetes'>
+                <option value='null' disabled selected>Seleccione</option>
+                <option *ngFor='let opt of listado_opciones' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class='form-group'>
+              <label class='control-label' for='tgastritis'>Gastritis:</label>
+              <select class='form-control' name='inp_tgastritis' [(ngModel)]='ante.a_gastritis'>
+                <option value='null' disabled selected>Seleccione</option>
+                <option *ngFor='let opt of listado_opciones' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class='form-group'>
+              <label class='control-label' for='thipertension'>Hipertensión:</label>
+              <select class='form-control' name='inp_thipertension' [(ngModel)]='ante.a_hipertension'>
+                <option value='null' disabled selected>Seleccione</option>
+                <option *ngFor='let opt of listado_opciones' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class='form-group'>
+              <label class='control-label' for='tansiedad'>Ansiedad:</label>
+              <select class='form-control' name='inp_tansiedad' [(ngModel)]='ante.a_ansiedad'>
+                <option value='null' disabled selected>Seleccione</option>
+                <option *ngFor='let opt of listado_opciones' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class='form-group'>
+              <label class='control-label' for='toperaciones'>Operaciones:</label>
+              <select class='form-control' name='inp_toperaciones' [(ngModel)]='ante.a_operaciones'>
+                <option value='null' disabled selected>Seleccione</option>
+                <option *ngFor='let opt of listado_opciones' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class='form-group'>
+              <label class='control-label' for='thormonales'>P. Hormonales:</label>
+              <select class='form-control' name='inp_thormonales' [(ngModel)]='ante.a_hormonales'>
+                <option value='null' disabled selected>Seleccione</option>
+                <option *ngFor='let opt of listado_opciones' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class='form-group'>
+              <label class='control-label' for='tcesarea'>Cesarea:</label>
+              <select class='form-control' name='inp_tcesarea' [(ngModel)]='ante.a_cesarea'>
+                <option value='null' disabled selected>Seleccione</option>
+                <option *ngFor='let opt of listado_opciones' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class='form-group'>
+              <label class='control-label' for='tanticonceptivos'>Anticonceptivos:</label>
+              <select class='form-control' name='inp_tanticonceptivos' [(ngModel)]='ante.a_anticonceptivos'>
+                <option value='null' disabled selected>Seleccione</option>
+                <option *ngFor='let opt of listado_opciones' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class='form-group'>
+              <label class='control-label' for='tcigarro_alcohol'>Cigarro, Alcohol:</label>
+              <select class='form-control' name='inp_tcigarro_alcohol' [(ngModel)]='ante.a_cigarro_alcohol'>
+                <option value='null' disabled selected>Seleccione</option>
+                <option *ngFor='let opt of listado_opciones' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col-md-2">
+            <div class='form-group'>
+              <label class='control-label' for='totros'>Otros:</label>
+              <select class='form-control' name='inp_totros' [(ngModel)]='ante.a_otros'>
+                <option value='null' disabled selected>Seleccione</option>
+                <option *ngFor='let opt of listado_opciones' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <button type="submit" *ngIf="tnrodni.valid && tapellidos.valid && tnombres.valid && tcelular.valid"
+        class="btn btn-success mr-1">Registrar</button>
+      <button (click)="regresar_listado()" type="button" class="btn btn-danger">Volver</button>
+
+    </div>
+  </div>
+</form>

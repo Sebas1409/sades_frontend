@@ -1,0 +1,36 @@
+<titulo-seccion titulo="Productos" subtitulo="Mantenimiento de Productos" [anterior]="true">
+</titulo-seccion>
+
+<filtro-simple [filtroareas]="false" [listado_filtros]="listado_filtros" [cant_datos]="listado_datos.length"
+  (buscar_datos)="listar_datos($event)" (exportar)="exportar_excel()">
+</filtro-simple>
+
+<div class="table-responsive">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th width="12.5%">Area</th>
+        <th width="12.5%">Cargo</th>
+        <th>Nombre</th>
+        <th width="7.5%" class="celda-derecha">
+          <button (click)="mostrar_formulario(false)" mat-mini-fab class="bg-success">
+            <mat-icon>add</mat-icon>
+          </button>
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let item of listado_datos">
+        <td (click)="mostrar_formulario(true, item)" align="center" [ngStyle]="{'background': item.color}">{{item.area |
+          uppercase}}</td>
+        <td (click)="mostrar_formulario(true, item)" align="center">{{item.cargo | uppercase}}</td>
+        <td (click)="mostrar_formulario(true, item)">{{item.nombre_completo | uppercase}}</td>
+        <td align="right">
+          <mat-icon (click)="mostrar_cambio_clave(item)" class="text-success">key</mat-icon>
+          <mat-icon (click)="mostrar_formulario(true, item)" class="text-primary">edit</mat-icon>
+          <mat-icon (click)="eliminar_item(item.idempleado)" class="text-danger">delete</mat-icon>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>

@@ -1,0 +1,31 @@
+<div class="card border-secondary mt-3">
+  <div class="card-header">
+    <strong>Dietas asignadas</strong>
+  </div>
+  <div class="table-responsive">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th width="5%">#</th>
+          <th width="15%">Fecha</th>
+          <th>Dieta</th>
+          <th width="7.5%" class="celda-derecha" *ngIf="idestadomat == 1">
+            <button (click)="mostrar_modal_dietas(false)" mat-mini-fab class="bg-success">
+              <mat-icon>add</mat-icon>
+            </button>
+          </th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let asi of dietas_asignadas; let ind = index;">
+          <td align="center">{{ind+1}}</td>
+          <td align="center">{{asi.fecha | date:'dd/MM/yyyy'}}</td>
+          <td>{{asi.nombre | uppercase}}</td>
+          <td align="right" *ngIf="idestadomat == 1">
+            <mat-icon class="text-danger" (click)="eliminar_asistencia(asi.iddietasignada)">delete</mat-icon>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>

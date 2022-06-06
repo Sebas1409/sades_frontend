@@ -1,0 +1,15 @@
+<div class="row encabezado">
+  <div class="col-md-12">
+    <span *ngIf="anterior" class="float-right btn-volver ocultar_impresion">
+      <a href="javascript:void(0);" (click)="regresar()">
+        <i class="fas fa-angle-double-left"></i> Volver
+      </a>
+    </span>
+    <span *ngIf="pretitulo" class="pretitulo">{{pretitulo}}</span>
+    <div *ngIf="titulo" class="titulo">{{titulo | uppercase}}</div>
+    <div *ngIf="subtitulo" class="subtitulo" [innerHTML]="subtitulo"></div>
+
+    <div *ngIf="!subtitulo" class="salto-linea"></div>
+    <hr class="dashed">
+  </div>
+</div>

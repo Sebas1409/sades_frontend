@@ -1,0 +1,71 @@
+<titulo-modal [titulo]="_titulo"></titulo-modal>
+
+<div *ngIf="!venta.idcaja" class="alert alert-danger">
+  La caja no esta abierta
+</div>
+
+<form *ngIf="venta.idcaja" (ngSubmit)="validar_accion()">
+  <div class="row">
+    <div class="col-md-6">
+      <div class='form-group'>
+        <label class='control-label' for='tdocventa'>Tipo Document*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': tdocventa.invalid}" name='inp_tdocventa'
+          [(ngModel)]='venta.tipo_doc' [formControl]='tdocventa'>
+          <option value='null' disabled selected>Seleccione Tipo Document</option>
+          <option *ngFor='let opt of tipos_doc_ventas' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class='form-group'>
+        <label class='control-label' for='tfecha'>Fecha Pago*:</label>
+        <input type='date' [ngClass]="{'is-invalid': tfecha.invalid}" class='form-control' required
+          [formControl]='tfecha' name='inp_tfecha' [(ngModel)]='pago.fecha_pago' placeholder='Ingrese Fecha Pago'>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <div class='form-group'>
+        <label class='control-label' for='tcongelado'>Pago Congelado?*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': tcongelado.invalid}" name='inp_tcongelado'
+          [(ngModel)]='pago.congelado' [formControl]='tcongelado'>
+          <option *ngFor='let opt of tipo_congelado' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+    <div class="col-md-6">
+      <div class='form-group'>
+        <label class='control-label' for='tmetpago'>Metodo Pago*:</label>
+        <select class='form-control' [ngClass]="{'is-invalid': tmetpago.invalid}" name='inp_tmetpago'
+          [(ngModel)]='pago.metodo_pago' [formControl]='tmetpago'>
+          <option value='null' disabled selected>Seleccione Metodo Pago</option>
+          <option *ngFor='let opt of metodos_pagos' [value]='opt.codigo'>{{opt.nombre | uppercase}}</option>
+        </select>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-8">
+      <div class='form-group'>
+        <label class='control-label' for='tservicio'>Servicio*:</label>
+        <input readonly type='text' class='form-control' name='inp_tservicio' [(ngModel)]='matricula.servicio'
+          placeholder='Ingrese Servicio'>
+      </div>
+    </div>
+    <div class="col-md-4">
+      <div class='form-group'>
+        <label class='control-label' for='tmonto'>Monto Pago*:</label>
+        <input type='number' [ngClass]="{'is-invalid': tmonto.invalid}" class='form-control' required
+          [formControl]='tmonto' name='inp_tmonto' [(ngModel)]='pago.monto_pago' placeholder='Ingrese Monto Pago'>
+      </div>
+    </div>
+  </div>
+
+  <button type="submit" class="btn btn-success mr-1"
+    *ngIf="tdocventa.valid && tmetpago.valid && tfecha.valid && tcongelado.valid"
+    [disabled]="_guardando">Guardar</button>
+  <button type="button" class="btn btn-danger" (click)="cerrar_ventana(false)">Cancelar</button>
+</form>
